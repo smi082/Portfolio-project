@@ -1,21 +1,22 @@
 import React from "react";
 import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 export default function DisplayCard(props) {
-  const { title } = props
+  const { title, image, overview } = props
   return (
+    
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={`http://image.tmdb.org/t/p/w500/${image}`} />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {overview}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        
       </Card.Body>
     </Card>
-  );
-  
+  )
+ 
 }
