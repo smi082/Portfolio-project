@@ -1,22 +1,21 @@
 import React from "react";
 import Card from "react-bootstrap/Card"
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+
 
 export default function DisplayCard(props) {
-  const { title, image, overview } = props
+  const { title, image, tagline } = props
   return (
-    
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={`http://image.tmdb.org/t/p/w500/${image}`} />
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {overview}
-        </Card.Text>
-        
-      </Card.Body>
-    </Card>
+  
+    <Card className="bg-dark text-white justify-content-right">
+    <Card.Img  src={`http://image.tmdb.org/t/p/w500/${image}`} alt="Card image" />
+    <Card.ImgOverlay>
+      <Card.Title>{title}</Card.Title>
+      <Card.Text>
+        {tagline}
+      </Card.Text>
+      {/* <Card.Text>Last updated 3 mins ago</Card.Text> */}
+    </Card.ImgOverlay>
+  </Card>
   )
  
 }

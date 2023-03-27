@@ -3,6 +3,33 @@
 }
 
 #root {
-  background-color: rgb(54, 48, 48);
+  background-color: rgb(16, 0, 36);
 }
 
+/* -------------------- NavBar ---------------------- */
+.nav {
+  opacity: .7;
+  position: fixed;
+  width: 100%;
+}
+
+.navbar-dark .navbar-nav .nav-link
+{
+    color:#fff;
+}
+
+
+/* -------------------- Hero Image ---------------------- */
+
+.image--text {
+  width: 50%;
+  padding-top: 25%;
+  justify-content: baseline;
+}
+
+/* -------------------- Display ---------------------- */
+
+
+.grid--section {
+  padding: 30px 50px;
+}
