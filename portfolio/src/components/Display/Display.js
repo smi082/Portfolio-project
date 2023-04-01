@@ -26,42 +26,55 @@ function Display() {
   const [ displayList, setDisplayList ] = useState([])
   const [ heroImage, setHeroImage ] = useState([])
   const [ genreList, setGenreList ] = useState([])
-  const [ genreID, setGenreID ] = useState(0)
+  const [ genreID, setGenreID ] = useState({
+    id: "",
+    name: "Genre"
+  })
   
-  
-  const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genre=${genreID}`
 
   // useEffect hook to get data from API and save the data to state as an array
   useEffect(() => {
+    const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genres=${genreID.id}`
+
     fetch(moviesURL) //fetch request from URL 
     .then((res) => res.json()) //converts results from the fetch request as json data
+   
     .then((data) => {
-      setDisplayList(data.results)
       setHeroImage(data.results[1])
+      return data.results; // pass the list of movies to the next then block
+    })
+    .then((movies) => {
+      setDisplayList(movies); // update the display list with the new list of movies
     })
     
      //takes the converted json data and saves it in state as an array
     .catch((error) => console.log(error)) // console logs any error recieved from the fetch request
-    }, [])  
+    }, [genreID])  
 
 
+    // this hook sets the genreList used in to populate the drop down menu in the handleSelect function below
     useEffect(() => {
       fetch(genresURL) //fetch request from URL 
       .then((res) => res.json()) //converts results from the fetch request as json data
       .then((data) => setGenreList(data.genres)
-        
-      
       )}, [])
 
   //logs the display list to the console to see what type of data has been recieved from the fetch request
-  console.log(displayList)
-  console.log(genreList)
-
-  const handleChange = (e) => {
-    setGenreID(e.target.value)
-    console.log(genreID)
+  // console.log(displayList)
+  // console.log(heroImage)
+  // console.log(genreList)
+ 
+  const handleSelect = (e) => {
+    let target = e.target
+    let selectedID = parseInt(target.getAttribute("value"));
+    let selectedName = target.getAttribute("name")
+    setGenreID({id: selectedID, name: selectedName})
+    
   }
 
+  const selectHeroImage = (movie) => {
+    setHeroImage(movie)
+  }
 
   return (
     <>
@@ -69,46 +82,38 @@ function Display() {
         image={heroImage.backdrop_path}
         title={heroImage.title}
         overview={heroImage.overview}
+        tagline={heroImage.tagline}
       />
       
+    
+    <Container fluid className="dropdown--section" style={{height: '150px', display: 'flex', justifyContent: 'space-between', width: "80%", alignItems: "flex-end", color: "white"}}>
+        <h3> {genreID.name === "Genre" ? `Trending movies > ` : `Top 20 ${genreID.name} movies >`}</h3>
+        <Dropdown >
+          <Dropdown.Toggle >
+          {genreID.name}
+        </Dropdown.Toggle>
+          <Dropdown.Menu  variant="success" id="dropdown-basic" >
+            {genreList.map((genre) => {
+              // handle change needs fixing {/*href={`#/${genre.id}`} */ }
+              return <Dropdown.Item onClick={handleSelect} value={genre.id} name={genre.name}>{genre.name}</Dropdown.Item>
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+    </Container>
       
-
-      
-      <Container fluid style={{height: '250px', display: 'flex', justifyContent: 'space-between', width: "80%", alignItems: "baseline"}}>
-        
-          <h6 className="">{`POPULAR MOVIES >`}</h6>
-
-
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Genre
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        {genreList.map((genre) => {
-          // handle change needs fixing
-          return <Dropdown.Item href="#/action-1" onChange={(e) => handleChange(e)} value={genre.id}>{genre.name}</Dropdown.Item>
-        })}
-      </Dropdown.Menu>
-      </Dropdown>
-
-        
-      </Container>
-
-
       <Row xxs={2} xs={5} className="g-5  grid--section">
         {displayList.map((movie, idx) => (
         <Col>
-            <DisplayCard 
-              title={movie.title}
-              image={movie.poster_path}
-              // overview={movie.overview}
-              // tagline={movie.tagline}
-            />  
+          <DisplayCard functionProp={() => selectHeroImage(movie)}
+            title={movie.title}
+            image={movie.poster_path}
+            overview={movie.overview}
+            tagline={movie.tagline}
+          />  
         </Col>
       ))}
     </Row>
-  
+
   </>
   )
 }

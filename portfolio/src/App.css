@@ -33,3 +33,25 @@
 .grid--section {
   padding: 30px 50px;
 }
+
+/* --------------------Dropdown section ------------------- */
+
+.dropdown--section {
+  height: '250px' !important; 
+  display: 'flex'; 
+  justify-content: 'space-between';
+  width: "80%"; 
+  align-items:flex-end;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(45deg, rgba(29, 236, 197, 0.5), rgba(91, 14, 214, 0.5) 100%);
+  z-index: 2;
+  opacity: 0.8;
+}
+  
