@@ -12,7 +12,7 @@ export default function DisplayCard(props) {
   }
 
   return (
-    <div style={{ cursor: 'pointer', position: 'relative', }}>
+    <div className="overlay" style={{ cursor: 'pointer', position: 'relative', }}>
     <Card 
       className="bg-dark text-white justify-content-end overlay"
       as="a" 

@@ -8,7 +8,7 @@
 
 /* -------------------- NavBar ---------------------- */
 .nav {
-  opacity: .7;
+  opacity: .8;
   position: fixed;
   width: 100%;
 }
@@ -27,6 +27,8 @@
   justify-content: baseline;
 }
 
+
+
 /* -------------------- Display ---------------------- */
 
 
@@ -44,9 +46,17 @@
   align-items:flex-end;
 }
 
-.overlay:hover {
-  opacity: 0.5;
-  background-color: linear-gradient(45deg, rgba(29, 236, 197, 0.5), rgba(91, 14, 214, 0.5) 100%);
-  transition: opacity 0.5s;
+
+.overlay {
+  transition: opacity 0.5s  ease-out;
 }
+
+.overlay:hover {
+  opacity: 0.7;
   
+}
+
+
+
+
+

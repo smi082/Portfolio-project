@@ -8,14 +8,14 @@ import Container from 'react-bootstrap/Container';
 
 function NavB() {
   return (
-    <Navbar className="nav" bg="dark" expand="lg" sticky="top" >
+    <Navbar style={{ display: "flex", justifyContent: "space-between" }} className="nav" bg="dark" expand="md" sticky="top" >
       <Container>
         <Navbar.Brand href="#home" style={{color:"white"}}>YourMovie</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto ">
             <Nav.Link href="#home" style={{color:"white"}}>Home</Nav.Link>
-            <Nav.Link href="#link" style={{color:"white"}}>Link</Nav.Link>
+            <Nav.Link href="#link" style={{color:"white"}}>Contact Us</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -30,6 +30,19 @@ function Display() {
     id: "",
     name: "Genre"
   })
+
+
+// sets the state of the current screen width, I am keeping track of this so I can conditionally render some props on the HeroImage Component inside the render
+  const [ screenSize, setScreenSize ] = useState() 
+
+  useEffect(() => {
+    window.addEventListener("resize", changeScreenSize)
+    console.log(screenSize)
+  },)
+  const changeScreenSize = () => {
+    setScreenSize(window.innerWidth)
+    console.log(screenSize)
+  }
   
 
   // useEffect hook to get data from API and save the data to state as an array
@@ -72,47 +85,59 @@ function Display() {
     
   }
 
+  //takes a movie object as a paramater and passes the movie object to the setHeroImage function, setting the state of heroImage to the passed movie object
   const selectHeroImage = (movie) => {
     setHeroImage(movie)
   }
 
   return (
     <>
+     {/* Ternary operator to conditionally render the overview of the movie, only appearing on screens greater than 768px */}
+    {screenSize >= 768 ?
       <HeroImage
         image={heroImage.backdrop_path}
         title={heroImage.title}
         overview={heroImage.overview}
         tagline={heroImage.tagline}
       />
+      :
+      <HeroImage
+        image={heroImage.backdrop_path}
+        title={heroImage.title}
+        tagline={heroImage.tagline}
+      />
+    }
       
     
-    <Container fluid className="dropdown--section" style={{height: '150px', display: 'flex', justifyContent: 'space-between', width: "80%", alignItems: "flex-end", color: "white"}}>
-        <h3> {genreID.name === "Genre" ? `Trending movies > ` : `Top 20 ${genreID.name} movies >`}</h3>
+      
+    
+    <Container fluid className="dropdown--section" style={{height: '150px', display: 'flex', justifyContent: 'space-between', width: "92%", alignItems: "flex-end", color: "white"}}>
+        <h3 style={{alignItems: "left"}}> {genreID.name === "Genre" ? `Trending movies > ` : `Top 20 ${genreID.name} movies >`}</h3>
         <Dropdown >
-          <Dropdown.Toggle >
-          {genreID.name}
-        </Dropdown.Toggle>
-          <Dropdown.Menu  variant="success" id="dropdown-basic" >
+          <Dropdown.Toggle variant="dark">
+            {genreID.name}
+          </Dropdown.Toggle>
+          
+        <Dropdown.Menu  variant="dark" id="dropdown-basic" >
             {genreList.map((genre) => {
-              // handle change needs fixing {/*href={`#/${genre.id}`} */ }
               return <Dropdown.Item onClick={handleSelect} value={genre.id} name={genre.name}>{genre.name}</Dropdown.Item>
             })}
           </Dropdown.Menu>
         </Dropdown>
     </Container>
       
-      <Row xxs={2} xs={5} className="g-5  grid--section">
-        {displayList.map((movie, idx) => (
-        <Col>
-          <DisplayCard functionProp={() => selectHeroImage(movie)}
-            title={movie.title}
-            image={movie.poster_path}
-            overview={movie.overview}
-            tagline={movie.tagline}
-          />  
-        </Col>
-      ))}
-    </Row>
+    <Row className="g-5  grid--section">
+      {displayList.map((movie, idx) => (
+      <Col xs={6} md={4} lg={3} xl={2} >  
+        <DisplayCard functionProp={() => selectHeroImage(movie)}
+          title={movie.title}
+          image={movie.poster_path}
+          overview={movie.overview}
+          tagline={movie.tagline}
+        />  
+      </Col>
+    ))}
+  </Row>
 
   </>
   )
