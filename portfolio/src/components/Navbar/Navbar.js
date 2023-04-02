@@ -3,6 +3,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 
+import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-dom';
+
 
 import Container from 'react-bootstrap/Container';
 
@@ -14,8 +17,11 @@ function NavB() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto ">
-            <Nav.Link href="#home" style={{color:"white"}}>Home</Nav.Link>
-            <Nav.Link href="#link" style={{color:"white"}}>Contact Us</Nav.Link>
+            
+            <Nav.Link href="/" style={{color:"white"}}>Home</Nav.Link>
+
+            <Nav.Link href="/contact" style={{color:"white"}}>Contact Us</Nav.Link>
+
           </Nav>
         </Navbar.Collapse>
       </Container>

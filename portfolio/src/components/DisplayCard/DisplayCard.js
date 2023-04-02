@@ -4,7 +4,7 @@ import Overlay from "react-bootstrap/Overlay"
 
 
 export default function DisplayCard(props) {
-  const { title, image, tagline, functionProp } = props;
+  const {image, functionProp } = props;
 
   const handleClick = () => {
     console.log(props.movie);

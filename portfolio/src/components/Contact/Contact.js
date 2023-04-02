@@ -1,7 +1,7 @@
 import NavB from "../Navbar/Navbar";
 
 
-function Contact() {
+export default function Contact() {
   return (
     <h1>This is a contact page</h1>
   )

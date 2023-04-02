@@ -108,8 +108,7 @@ function Display() {
       />
     }
       
-    
-      
+
     
     <Container fluid className="dropdown--section" style={{height: '150px', display: 'flex', justifyContent: 'space-between', width: "92%", alignItems: "flex-end", color: "white"}}>
         <h3 style={{alignItems: "left"}}> {genreID.name === "Genre" ? `Trending movies > ` : `Top 20 ${genreID.name} movies >`}</h3>
