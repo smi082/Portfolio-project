@@ -46,6 +46,11 @@
   align-items:flex-end;
 }
 
+#dropdown-basic {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
 
 .overlay {
   transition: opacity 0.5s  ease-out;
@@ -57,10 +62,7 @@
 }
 
 /* ----------------- Contact page Icons ----------------- */
-.gradient {
 
-  color: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584,#e1306c, #fd1d1d)
-}
 
 
 

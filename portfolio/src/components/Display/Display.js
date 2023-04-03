@@ -23,32 +23,41 @@ const genresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${APIKe
 function Display() { 
 
   //set the initial state of the display list as an empty array, which is the data type expected from the API call in useState hook below
-  const [ displayList, setDisplayList ] = useState([])
-  const [ heroImage, setHeroImage ] = useState([])
-  const [ genreList, setGenreList ] = useState([])
+  const [ displayList, setDisplayList ] = useState([]) // set initial state as empty array
+  const [ heroImage, setHeroImage ] = useState([]) // set initial state as empty array
+  const [ genreList, setGenreList ] = useState([]) // set initial state as empty array
+  const [ movieYear, setMovieYear ] = useState(2023) // set inital state as current year
   const [ genreID, setGenreID ] = useState({
     id: "",
     name: "Genre"
-  })
+  }) // set inital state as an object, with both keys as string datatype
 
   
+  const year = (new Date()).getFullYear()
+  const years = Array.from(new Array(75), (val, index) => year - index)
 
+  const changeYear = (e) => {
+    let target = e.target
+    let selectedYear = parseInt(target.getAttribute("value"));
+    setMovieYear(selectedYear)
+    console.log(movieYear)
+  }
 // sets the state of the current screen width, I am keeping track of this so I can conditionally render some props on the HeroImage Component inside the render
   const [ screenSize, setScreenSize ] = useState() 
 
   useEffect(() => {
     window.addEventListener("resize", changeScreenSize)
-    console.log(screenSize)
+
   },)
   const changeScreenSize = () => {
     setScreenSize(window.innerWidth)
-    console.log(screenSize)
+    
   }
   
-
+   //START POINT URL: /discover/movie?with_genres=18&primary_release_year=2014
   // useEffect hook to get data from API and save the data to state as an array
   useEffect(() => {
-    const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genres=${genreID.id}`
+    const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genres=${genreID.id}&primary_release_year=${movieYear}`
 
     fetch(moviesURL) //fetch request from URL 
     .then((res) => res.json()) //converts results from the fetch request as json data
@@ -63,7 +72,7 @@ function Display() {
     
      //takes the converted json data and saves it in state as an array
     .catch((error) => console.log(error)) // console logs any error recieved from the fetch request
-    }, [genreID])  
+    }, [genreID, movieYear])  
 
 
     // this hook sets the genreList used in to populate the drop down menu in the handleSelect function below
@@ -113,14 +122,27 @@ function Display() {
     
     <Container fluid className="dropdown--section" style={{height: '150px', display: 'flex', justifyContent: 'space-between', width: "92%", alignItems: "flex-end", color: "white"}}>
         <h3 style={{alignItems: "left"}}> {genreID.name === "Genre" ? `Trending movies > ` : `Top 20 ${genreID.name} movies >`}</h3>
+        
         <Dropdown >
-          <Dropdown.Toggle variant="dark">
+          <Dropdown.Toggle variant="dark" className="p-3 ms-3">
             {genreID.name}
           </Dropdown.Toggle>
-          
+
         <Dropdown.Menu  variant="dark" id="dropdown-basic" >
             {genreList.map((genre) => {
               return <Dropdown.Item onClick={handleSelect} value={genre.id} name={genre.name}>{genre.name}</Dropdown.Item>
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+
+        <Dropdown >
+          <Dropdown.Toggle variant="dark" className="p-3 ms-3">
+            {movieYear}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu variant="dark" id="dropdown-basic" >
+          { years.map((year, index) => {
+              return <Dropdown.Item value={year} key={index} onClick={changeYear}>{year}</Dropdown.Item>
             })}
           </Dropdown.Menu>
         </Dropdown>
