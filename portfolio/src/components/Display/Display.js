@@ -31,6 +31,7 @@ function Display() {
     name: "Genre"
   })
 
+  
 
 // sets the state of the current screen width, I am keeping track of this so I can conditionally render some props on the HeroImage Component inside the render
   const [ screenSize, setScreenSize ] = useState() 
@@ -53,7 +54,7 @@ function Display() {
     .then((res) => res.json()) //converts results from the fetch request as json data
    
     .then((data) => {
-      setHeroImage(data.results[1])
+      setHeroImage(data.results[0])
       return data.results; // pass the list of movies to the next then block
     })
     .then((movies) => {
