@@ -13,7 +13,7 @@ function NavB() {
   return (
     <Navbar style={{ display: "flex", justifyContent: "space-between" }} className="nav" bg="dark" expand="md" sticky="top" >
       <Container>
-        <Navbar.Brand href="#home" style={{color:"white"}}>YourMovie</Navbar.Brand>
+        <Navbar.Brand href="/" style={{color:"white"}}>YourMovie</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto ">
