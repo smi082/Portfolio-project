@@ -3,8 +3,11 @@ import NavB from './components/Navbar/Navbar';
 import './App.css';
 import "./components/Display/display.css"
 
+import Display from './components/Display/Display';
+import Contacts from './components/Contact/Contact';
+import HomePage from './components/HomePage/Homepage';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import {
   Route,
@@ -12,17 +15,17 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Display from './components/Display/Display';
-import Contacts from './components/Contact/Contact';
-import HomePage from './components/HomePage/Homepage';
 
+
+
+// created routes
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    
       <Route path="movies" element={<Display />} />
       <Route index path="/" element={<HomePage />} />
       <Route path="contact" element={<Contacts />}  />
+      <Route path="*" element={<PageNotFound />} />
     </>
     
   )
