@@ -70,7 +70,7 @@ function Display() {
   
   /**  useEffect hook to get data from API and save the data to state as an @type {array} of  @type {objects} */
   useEffect(() => {
-    const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genres=${genreID.id}&primary_release_year=${movieYear}`
+    const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genres=${genreID.id}&primary_release_year=${movieYear}&include_adult=false`
 
     fetch(moviesURL) //fetch request from URL 
     .then((res) => res.json()) /** converts results from the fetch request as json @type {object} */
