@@ -1,10 +1,9 @@
+// basic navbar component that is render at the top of all pages in the application
+
 import 'bootstrap/dist/css/bootstrap.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-
-import { Link } from 'react-router-dom';
-import { LinkContainer } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFilm

@@ -13,7 +13,7 @@ function HeroImage(props) {
         {overview}
         </Card.Text >
 
-        {/* change below to a button */}
+        
         
       </Card.ImgOverlay>
     </Card> 

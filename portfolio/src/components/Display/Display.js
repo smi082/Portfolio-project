@@ -1,3 +1,8 @@
+// The purpose of this script is to display the data received from the TMDB API.
+// two seperate API calls are made
+/** 1. returns a json @type {object} to populate the genre dropdown button with the @type {string} name property, and the ID @type {number} is used to change the URL in the below API call which returns the genre  */ 
+/** 2. returns a json @type {object} that sets the state of the listDisplay state, the object is destructured and passes the props to the child components. */
+
 import React,  { useEffect, useState }  from "react";
 import DisplayCard from "../DisplayCard/DisplayCard";
 import HeroImage from "../Hero/Hero"
@@ -10,34 +15,40 @@ import "./display.css"
 
 const APIKey = process.env.REACT_APP_TMDB_API_KEY
 
-// const URL = `https://api.themoviedb.org/3/movie?sort_by=popularity.desc?api_key=${APIKey}`
-
-//URL endpoint which has API Key hidden. saved as a String datatype
-// const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&sort_by=popularity.desc&page=1`
-// const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genre=${genreID}`
-
-
-
 const genresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${APIKey}&language=en-US`
 
 function Display() { 
 
   //set the initial state of the display list as an empty array, which is the data type expected from the API call in useState hook below
-  const [ displayList, setDisplayList ] = useState([]) // set initial state as empty array
-  const [ heroImage, setHeroImage ] = useState([]) // set initial state as empty array
-  const [ genreList, setGenreList ] = useState([]) // set initial state as empty array
-  const [ movieYear, setMovieYear ] = useState(2023) // set inital state as integer representing current year
+
+  /**set initial state as empty @type {array} */ 
+  const [ displayList, setDisplayList ] = useState([])
+
+  /**set initial state as empty @type {array} */ 
+  const [ heroImage, setHeroImage ] = useState([]) 
+
+  /**set initial state as empty @type {array} */ 
+  const [ genreList, setGenreList ] = useState([]) 
+
+  /**  set inital state as @type {number} representing current year */
+  const [ movieYear, setMovieYear ] = useState(2023)
+
+  /**  set inital state as an @type {object} , with both keys as @type {string} datatype */
   const [ genreID, setGenreID ] = useState({
     id: "",
     name: "Genre"
-  }) // set inital state as an object, with both keys as string datatype
+  }) 
 
   
-  const year = (new Date()).getFullYear() // creates a new date object and extracts only the current year using the getFullYear method, and saves the 4 digit year as an integer inside the year variable.
-  const years = Array.from(new Array(75), (val, index) => year - index) // creates a new array with a length of 75 integers, and counts backwards from the current year, and saves the values if the array into the years variable.
+
+  /** @return a new date @type {object} and extracts only the current year using the getFullYear method, and saves the 4 digit year as an integer inside the year variable. */ 
+  const year = (new Date()).getFullYear() 
+
+  /**  creates a new @type {array} with a length of 75 integers, and counts backwards from the current year, and saves the values if the array into the years variable. */
+  const years = Array.from(new Array(75), (val, index) => year - index) 
 
 
-  //function that takes the value of an event and  saves the value as an integer in the selectedYear variable, and then sets the state of moveYear with the returned result 
+  /**function that takes the value of an event and  saves the value as an @type {integer} in the selectedYear variable, and then sets the state of moveYear with the returned result */
   const changeYear = (e) => {
     let target = e.target
     let selectedYear = parseInt(target.getAttribute("value"));
@@ -46,6 +57,7 @@ function Display() {
   }
 // sets the state of the current screen width, I am keeping track of this so I can conditionally render some props on the HeroImage Component inside the render
   const [ screenSize, setScreenSize ] = useState() 
+
 // added an event listener to the window, listening for a resize event, and calling the  changeScreenSize function to set the state of the screenSize to an integer equal to the width fo the screen
   useEffect(() => {
     window.addEventListener("resize", changeScreenSize)
@@ -56,12 +68,12 @@ function Display() {
   }
   
   
-  // useEffect hook to get data from API and save the data to state as an array of objects
+  /**  useEffect hook to get data from API and save the data to state as an @type {array} of  @type {objects} */
   useEffect(() => {
     const moviesURL = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}&with_genres=${genreID.id}&primary_release_year=${movieYear}`
 
     fetch(moviesURL) //fetch request from URL 
-    .then((res) => res.json()) //converts results from the fetch request as json data
+    .then((res) => res.json()) /** converts results from the fetch request as json @type {object} */
    
     .then((data) => {
       setHeroImage(data.results[0])
@@ -79,7 +91,7 @@ function Display() {
     // this hook sets the genreList used  to populate the drop down menu in the handleSelect function below
     useEffect(() => {
       fetch(genresURL) //fetch request from URL 
-      .then((res) => res.json()) //converts results from the fetch request as json data
+      .then((res) => res.json()) /** converts results from the fetch request as json @type {object} */
       .then((data) => setGenreList(data.genres)
       )}, [])
 
@@ -132,7 +144,6 @@ function Display() {
             {genreID.name}
           </Dropdown.Toggle>
 
-
         {/* Used the map() array method map over the genreList and return the result as a new array that populates the dropdown list with the name of each genre */}
         <Dropdown.Menu  variant="dark" id="dropdown-basic" >
             {genreList.map((genre) => {
@@ -158,6 +169,7 @@ function Display() {
     <Row className="g-5  grid--section">
       {displayList.map((movie, idx) => (
       <Col xs={6} md={4} lg={3} xl={2} >  
+      
         <DisplayCard functionProp={() => selectHeroImage(movie)}
           title={movie.title}
           image={movie.poster_path}

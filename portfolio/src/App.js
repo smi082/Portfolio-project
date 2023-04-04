@@ -18,7 +18,7 @@ import {
 
 
 
-// created routes
+// created routes for all pages, and a path route if the page url does not match the three main pages
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -29,42 +29,13 @@ const router = createBrowserRouter(
     </>
     
   )
-  )
-// function App() {
-
-
-// );
-
-
-
-//   return (
-//   //  <>
-//   //  <NavB />
-//   //  <Display />
-//   //  </>
-//     // <BrowserRouter>
-//     //   <Routes>
-//     //     <Route path="/" element={<HomePage />} />
-//     //     <Route path="/movies" element={<Display />} />
-//     //     <Route path="/contact" element={<Contact />} />
-//     //   </Routes>
-//     // </BrowserRouter>
-//     <>
-//       <NavB />
-//       <RouterProvider router={router} />
-//     </>
-    
-//   )
-// }
-
-
-// export default App;
+)
 
 export const App = () => {
   return (
     <>
-    <NavB />
-    <RouterProvider router={router} />
+      <NavB />
+      <RouterProvider router={router} />
     </>
   );
 };
